@@ -1,0 +1,358 @@
+#ifndef FUNCTION_H_INCLUDED
+#define FUNCTION_H_INCLUDED
+
+/************************************************
+                结构体变量stu_
+************************************************/
+struct stu_{
+    char num[8];        //学号
+    char name[15];      //姓名
+    char grade[4];      //年级
+    char coll_[15];     //学院
+    char major[15];     //专业
+    char birth[8];      //出生日期
+    }stu;
+
+
+
+/************************************************
+        菜单函数
+************************************************/
+int menu()
+{
+    int cmd;
+    printf("╔═══════════════════════╗\n");
+    printf("║            菜单界面                          ║\n");
+    printf("║                                              ║\n");
+    printf("║1. 录入学生信息                               ║\n");
+    printf("║2. 从文件中导入学生信息                       ║\n");
+    printf("║3. 查询学生信息                               ║\n");
+    printf("║4. 删除学生信息                               ║\n");
+    printf("║5. 修改学生信息                               ║\n");
+    printf("║6. 显示指定班级学生信息                       ║\n");
+    printf("║7. 向新文件导出学生信息                       ║\n");
+    printf("║8. 关闭系统                                   ║\n");
+    printf("╚═══════════════════════╝\n");
+    printf("\n请输入执行操作的编号：");
+    scanf("%d",&cmd);
+    return cmd;
+}
+
+/************************************************
+    导入文件函数，将指定文件的内容打印在屏幕
+************************************************/
+void import(char * fp)
+{
+	FILE *file;
+	int res;
+//	char name_[20];
+	file=fopen(fp,"r");//打开文件
+	if(file==NULL)//判断是否打开成功
+	{
+		printf("打开文件失败\n");
+		return;
+	}
+	printf("学生证列表：\n");
+	while((res=fscanf(file,"%s %s %s %s %s %s",&stu.num,&stu.name,&stu.grade,&stu.coll_,&stu.major,&stu.birth))!=EOF)
+		printf("%s %s %s %s %s %s\n",stu.num,stu.name,stu.grade,stu.coll_,stu.major,stu.birth);//输出学生证信息
+	fclose(file);
+	return;
+}
+
+/************************************************
+    导出文件函数，将输入内容导出到文件中
+************************************************/
+//导出文件
+void export_(char * fp)
+{
+	FILE *file;
+	FILE *file_temp;
+	char fp_temp[20];
+	printf("请输入导出的文件名：\n");
+	scanf("%s",fp_temp);
+
+	file=fopen(fp,"r");
+	file_temp=fopen(fp_temp,"w");//打开文件
+	if(file==NULL)//判断是否打开成功
+	{
+		printf("打开文件失败\n");
+		return;
+	}
+	char temp[100];
+	while(1)
+	{
+		char * p=fgets(temp,100,file);
+		if(p==NULL)
+		{
+			break;
+		}
+		fputs(temp,file_temp);
+	}
+	printf("导出成功！\n");
+	fclose(file);//关闭文件
+	fclose(file_temp);
+
+}
+
+
+/*****************************************************
+
+*****************************************************/
+void r_stu(char *fp)
+{
+	FILE *file;
+	int res,id,id_,class_;
+	char name_[20];
+	file=fopen(fp,"r");
+	if(file==NULL)//判断是否打开成功
+	{
+		printf("打开文件失败\n");
+		return;
+	}
+	printf("请输入学生学号：\n");
+	scanf("%d",&id);
+	while(1)
+	{
+		res=fscanf(file,"%d %s %d\n",&id_,name_,&class_);//从文件中读取内容
+		if(res==-1)//判断是否读到文件末尾
+		{
+			printf("无此人信息\n");
+			fclose(file);//关闭文件
+			return;
+		}
+		if(id==id_)
+		{
+			printf("学号:%d 姓名:%s 班级:%d\n",id_,name_,class_);//输出学生证信息
+			fclose(file);//关闭文件
+			return;
+		}
+	}
+
+}
+
+//添加
+void a_stu(char *fp)
+{
+	FILE *file;
+	FILE *file_temp;
+	char *fp_temp="tmp.txt";
+
+	int res,id,id_,class_,success;
+	char name_[20];
+	int c;
+	char n[20];
+	file=fopen(fp,"r");//打开文件
+	file_temp=fopen(fp_temp,"w");//打开文件
+	if(file==NULL)//判断是否打开成功
+	{
+		printf("打开文件失败\n");
+		return;
+	}
+	printf("请输入学生学号：\n");
+	scanf("%d",&id);
+	while(1)
+	{
+		res=fscanf(file,"%d %s %d\n",&id_,name_,&class_);//从文件中读取内容
+		if(res==-1)//判断是否读到文件末尾
+		{
+			printf("请输入学生姓名和班级，以空格键间隔\n");
+			scanf("%s %d",n,&c);
+			if(check(n,c)==1)
+			{
+				fprintf(file_temp,"%d %s %d\n",id,n,c);
+				printf("插入成功\n");
+			}
+			else
+			{
+				printf("格式错误\n");
+			}
+			fclose(file);//关闭文件
+			fclose(file_temp);
+			remove(fp);
+			rename(fp_temp,fp);
+			return;
+
+		}
+		if(id==id_)
+		{
+			printf("该学号已经存在，插入失败\n");
+			fclose(file);//关闭文件
+			fclose(file_temp);//关闭文件
+			return;
+		}
+		else
+		{
+			fprintf(file_temp,"%d %s %d\n",id_,name_,class_);//输出学生证信息
+		}
+	}
+}
+
+//修改
+void w_stu(char * fp)
+{
+	FILE *file;
+	FILE *file_temp;
+	char *fp_temp="tmp.txt";
+
+	int res,id,id_,class_,success;
+	char name_[20];
+	int c;
+	char n[20];
+	file=fopen(fp,"r");//打开文件
+	file_temp=fopen(fp_temp,"w");//打开文件
+	if(file==NULL)//判断是否打开成功
+	{
+		printf("打开文件失败\n");
+		return;
+	}
+	printf("请输入学生学号：\n");
+	scanf("%d",&id);
+	success=0;
+	while(1)
+	{
+		res=fscanf(file,"%d %s %d\n",&id_,name_,&class_);//从文件中读取内容
+		if(res==-1)//判断是否读到文件末尾
+		{
+			if(success==0)//如果id存在
+			{
+				printf("无此人信息\n");
+				fclose(file);//关闭文件
+				fclose(file_temp);
+				return;
+			}
+			else
+			{
+				printf("修改成功！\n");
+				fclose(file);//关闭文件
+				fclose(file_temp);
+				remove(fp);
+				rename(fp_temp,fp);
+				return;
+			}
+		}
+		if(id==id_)
+		{
+			success=1;
+			printf("请输入学生姓名和班级，以空格键间隔\n");
+			scanf("%s %d",n,&c);
+			if(check(n,c)==1)
+			{
+				fprintf(file_temp,"%d %s %d\n",id,n,c);
+			}
+			else
+			{
+				printf("格式错误\n");
+			}
+		}
+		else
+		{
+			fprintf(file_temp,"%d %s %d\n",id_,name_,class_);//输出学生证信息
+		}
+	}
+}
+
+//删除
+void d_stu(char * fp)
+{
+	FILE *file;
+	FILE *file_temp;
+	char *fp_temp="tmp.txt";
+
+	int res,id,id_,class_,success;
+	char name_[20];
+	file=fopen(fp,"r");//打开文件
+	file_temp=fopen(fp_temp,"w");//打开文件
+	if(file==NULL)//判断是否打开成功
+	{
+		printf("打开文件失败\n");
+		return;
+	}
+	printf("请输入学生学号：\n");
+	scanf("%d",&id);
+	success=0;
+	while(1)
+	{
+		res=fscanf(file,"%d %s %d\n",&id_,name_,&class_);//从文件中读取内容
+		if(res==-1)//判断是否读到文件末尾
+		{
+			if(success==0)
+			{
+				printf("无此人信息\n");
+				fclose(file);//关闭文件
+				fclose(file_temp);
+				return;
+			}
+			else
+			{
+				printf("删除成功！\n");
+				fclose(file);//关闭文件
+				fclose(file_temp);
+				remove(fp);
+				rename(fp_temp,fp);
+				return;
+			}
+		}
+		if(id==id_)
+		{
+			success=1;
+		}
+		else
+		{
+			fprintf(file_temp,"%d %s %d\n",id_,name_,class_);//输出学生证信息
+		}
+	}
+}
+
+//班级查阅
+void r_class(char *fp)
+{
+	FILE *file;
+	int res,classNum,id_,class_;
+	char name_[20];
+	file=fopen(fp,"r");//打开文件
+	if(file==NULL)//判断是否打开成功
+	{
+		printf("打开文件失败\n");
+		return;
+	}
+	printf("请输入班号：\n");
+	scanf("%d",&classNum);
+	printf("该班级学生：\n");
+	while(1)
+	{
+		res=fscanf(file,"%d %s %d\n",&id_,name_,&class_);//从文件中读取内容
+		if(res==-1)//判断是否读到文件末尾
+		{
+			fclose(file);//关闭文件
+			return;
+		}
+		if(classNum==class_)
+		{
+			printf("学号:%d 姓名:%s 班级:%d\n",id_,name_,class_);//输出学生证信息
+		}
+	}
+
+}
+
+//录入信息
+void enter(char *fp)
+{
+	a_stu(fp);
+}
+
+
+//检验
+int check(char name_[],int class_)
+{
+	if(strlen(name_)>0&&class_>0)	//检验用户输入是否合法
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+
+#endif // FUNCTION_H_INCLUDED

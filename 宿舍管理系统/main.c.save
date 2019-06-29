@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <string.h>
+#include "function.h"
+
+int main(void)
+{
+    char * fileName="ID.txt";
+	int flag=false;
+	int cmd;
+	while(flag==false)
+	{
+		cmd=menu();
+		switch(cmd)
+		{
+		case 1:
+			enter(fileName);//键盘录入学生证信息
+			break;
+		case 2:
+			import(fileName);//从文件导入学生证信息
+			break;
+		case 3:
+			r_stu(fileName);//给定学号，显示学生的学生证信息
+			break;
+		case 4:
+			r_class(fileName);//给定班号，显示该班学生信息
+			break;
+		case 5:
+			w_stu(fileName);//给定学号，修改学生的学生证信息
+			break;
+		case 6:
+			d_stu(fileName);//给定学号，删除学生的学生证信息
+			break;
+		case 7:
+			export_(fileName);//学生信息导出到文件
+			break;
+		default:
+			//flag=true;
+			printf("退出系统\n");
+			break;
+		}
+
+	}
+	getchar();
+	getchar();
+}
