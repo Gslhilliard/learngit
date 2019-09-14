@@ -1,0 +1,28 @@
+--cpu=Cortex-M4.fp
+"gsl\startup_stm32f427xx.o"
+"gsl\main.o"
+"gsl\gpio.o"
+"gsl\usart.o"
+"gsl\stm32f4xx_it.o"
+"gsl\stm32f4xx_hal_msp.o"
+"gsl\stm32f4xx_hal_tim.o"
+"gsl\stm32f4xx_hal_tim_ex.o"
+"gsl\stm32f4xx_hal_uart.o"
+"gsl\stm32f4xx_hal_rcc.o"
+"gsl\stm32f4xx_hal_rcc_ex.o"
+"gsl\stm32f4xx_hal_flash.o"
+"gsl\stm32f4xx_hal_flash_ex.o"
+"gsl\stm32f4xx_hal_flash_ramfunc.o"
+"gsl\stm32f4xx_hal_gpio.o"
+"gsl\stm32f4xx_hal_dma_ex.o"
+"gsl\stm32f4xx_hal_dma.o"
+"gsl\stm32f4xx_hal_pwr.o"
+"gsl\stm32f4xx_hal_pwr_ex.o"
+"gsl\stm32f4xx_hal_cortex.o"
+"gsl\stm32f4xx_hal.o"
+"gsl\stm32f4xx_hal_exti.o"
+"gsl\system_stm32f4xx.o"
+--library_type=microlib --strict --scatter "gsl\gsl.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "gsl.map" -o gsl\gsl.axf
