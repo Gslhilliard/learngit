@@ -1,0 +1,102 @@
+Create New Repository			创建新的存储库
+Clone Existing Repository		克隆现有存储库
+Open Existing Repository        打开现有存储库
+
+
+  从别人git上下载代码——————复制路径  打开  git  输入git clone +地址 https://github.com/liu-moon/RM2020.git
+
+
+只要本地提交      就可通过  $  git push origin master  把本地 master分支最新修改推送到GitHub
+
+1、把文件添加到仓库  $ git add readme.txt    可以add很多文件 如 $ git add file1.txt file3.txt  
+2、把文件提交到仓库  $ git commit -m"wrote a readme file"
+  git add  文件夹/      添加整个文件夹及内容
+  git add *.文件类型     添加目录中所有此文件类型的文件
+  git push   发布本地提交
+  
+
+ $ git --help
+usage: git [--version] [--help] [-C <path>] [-c <name>=<value>]
+           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
+           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]
+           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
+           <command> [<args>]
+
+These are common Git commands used in various situations:
+
+start a working area (see also: git help tutorial)
+   clone      Clone a repository into a new directory
+   init       Create an empty Git repository or reinitialize an existing one
+
+work on the current change (see also: git help everyday)
+   add        Add file contents to the index
+   mv         Move or rename a file, a directory, or a symlink
+   reset      Reset current HEAD to the specified state
+   rm         Remove files from the working tree and from the index
+
+examine the history and state (see also: git help revisions)
+   bisect     Use binary search to find the commit that introduced a bug
+   grep       Print lines matching a pattern
+   log        Show commit logs
+   show       Show various types of objects
+   status     Show the working tree status
+
+grow, mark and tweak your common history
+   branch     List, create, or delete branches
+   checkout   Switch branches or restore working tree files
+   commit     Record changes to the repository
+   diff       Show changes between commits, commit and working tree, etc
+   merge      Join two or more development histories together
+   rebase     Reapply commits on top of another base tip
+   tag        Create, list, delete or verify a tag object signed with GPG
+
+collaborate (see also: git help workflows)
+   fetch      Download objects and refs from another repository
+   pull       Fetch from and integrate with another repository or a local branch
+   push       Update remote refs along with associated objects
+
+'git help -a' and 'git help -g' list available subcommands and some
+concept guides. See 'git help <command>' or 'git help <concept>'
+to read about a specific subcommand or concept.
+
+灰鹤@LAPTOP-SB5IDN16 MINGW64 /d/learngit (master)
+这些是在各种情况下使用的常见Git命令：
+
+开始工作区域（另请参阅：git帮助教程）
+   clone将存储库克隆到新目录中
+   init创建一个空的Git存储库或重新初始化现有的存储库
+
+处理当前的变化（另请参阅：git help每天）
+   add将文件内容添加到索引中
+   mv移动或重命名文件，目录或符号链接
+   reset将当前HEAD重置为指定状态
+   rm从工作树和索引中删除文件
+
+检查历史和状态（另请参阅：git help revision）
+   bisect使用二进制搜索来查找引入错误的提交
+   grep打印与图案匹配的线条
+   log显示提交日志
+   show显示各种类型的对象
+   status显示工作树状态
+
+成长，标记和调整您的共同历史
+   branch列出，创建或删除分支
+   checkout切换分支或恢复工作树文件
+   commit将更改记录到存储库
+   diff显示提交，提交和工作树之间的更改等
+   合并将两个或多个开发历史连接在一起
+   rebase Reapply在另一个基本提示之上提交
+   标签创建，列出，删除或验证使用GPG签名的标记对象
+
+协作（另请参阅：git help workflows）
+   fetch从另一个存储库下载对象和引用
+   pull从另一个存储库或本地分支中获取并集成
+   推送更新远程引用以及关联的对象
+
+'git help -a'和'git help -g'列出了可用的子命令和一些
+概念指南。请参阅'git help <command>'或'git help <concept>'
+阅读有关特定子命令或概念的内容。
+
+灰鹤@ LAPTOP-SB5IDN16 MINGW64 / d / learngit（master）
+
+
